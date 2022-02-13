@@ -16,7 +16,9 @@ function teamb(){
 	sendBefore:function() {
 		$('#team').append('<h2>Loading...</h2>').show()
 	},
-	
+	error: function(){
+
+    },
 	success:function(data){
 		$(`div#team`).empty();
         $.each(data.members,function(a,b){
