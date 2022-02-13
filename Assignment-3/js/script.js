@@ -11,7 +11,7 @@
 
 });
 console.log("the team :", team);*/
-
+function teamb(){
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
 		$('#team').append('<h2>Loading...</h2>')
@@ -30,7 +30,5 @@ console.log("the team :", team);*/
         });
     }
 });
-$(document).ready(function () {
-    $.ajax();
-  });
+}
 
