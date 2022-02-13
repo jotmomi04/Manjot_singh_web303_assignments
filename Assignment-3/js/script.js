@@ -11,7 +11,7 @@
 
 });
 console.log("the team :", team);*/
-function teamb(){
+$(function teamb(){
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
 		$('#team').append('<h2>Loading...</h2>').show()
@@ -29,8 +29,7 @@ function teamb(){
             <h5>${b.position}</h5>
             <p>${b.bio}</p>
             `);
-        });
-    }
+        })
+    }});
 });
-}
 
