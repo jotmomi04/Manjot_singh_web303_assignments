@@ -1,4 +1,4 @@
-let team = $.getJSON("team.json").done(function(data){
+/*let team = $.getJSON("team.json").done(function(data){
   $.each(data.members,function(a,b){
       console.log("data a:",a,"and data b:",b);
 
@@ -10,8 +10,7 @@ let team = $.getJSON("team.json").done(function(data){
   })  ;
 
 });
-console.log("the team :", team);
-
+console.log("the team :", team);*/
 
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
