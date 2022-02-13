@@ -14,7 +14,7 @@ console.log("the team :", team);*/
 function teamb(){
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
-		$('#team').append('<h2>Loading...</h2>')
+		$('#team').append('<h2>Loading...</h2>').show()
 	},
 	
 	success:function(data){
