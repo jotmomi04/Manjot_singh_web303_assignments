@@ -11,15 +11,16 @@
 
 });
 console.log("the team :", team);*/
-$(function teamb(){
+$(function teamB() {
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
-		$('#team').append('<h2>Loading...</h2>').show()
+		$('#team').append('<h2>Loading...</h2>').show(3000)
 	},
 	error: function(){
-
-    },
-	success:function(data){
+		
+	},
+	
+	success: function(data){
 		$(`div#team`).empty();
         $.each(data.members,function(a,b){
             console.log("data a:",a,"and data b:",b);
@@ -29,7 +30,8 @@ $(function teamb(){
             <h5>${b.position}</h5>
             <p>${b.bio}</p>
             `);
-        })
-    }});
+        })  
+	}});
 });
+
 
