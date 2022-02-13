@@ -16,8 +16,7 @@ $(function teamB() {
 	sendBefore:function() {
 		$('#team').append('<h2>Loading...</h2>').show()
 	},
-
-	
+    timeout:3000,	
 	success: function(data){
 		$(`div#team`).empty();
         $.each(data.members,function(a,b){
