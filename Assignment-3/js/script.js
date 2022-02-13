@@ -32,6 +32,6 @@ console.log("the team :", team);
     }
 });
 $(document).ready(function () {
-    $.getJSON();
+    $.ajax();
   });
 
