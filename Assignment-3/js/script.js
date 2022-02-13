@@ -11,3 +11,11 @@ let team = $.getJSON("team.json").done(function(data){
 
 });
 console.log("the team :", team);
+
+$(function teamB() {
+	$.ajax({url: "team.json", 
+	sendBefore:function() {
+		$('#team').append('<h2>Loading...</h2>').show(3000)
+	},
+	error: function(){},});
+});
