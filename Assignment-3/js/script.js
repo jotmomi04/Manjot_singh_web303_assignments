@@ -14,11 +14,9 @@ console.log("the team :", team);*/
 $(function teamB() {
 	$.ajax({url: "team.json", 
 	sendBefore:function() {
-		$('#team').append('<h2>Loading...</h2>').show(3000)
+		$('#team').append('<h2>Loading...</h2>').show()
 	},
-	error: function(){
-		
-	},
+
 	
 	success: function(data){
 		$(`div#team`).empty();
@@ -31,7 +29,8 @@ $(function teamB() {
             <p>${b.bio}</p>
             `);
         })  
-	}});
+	},timeout:3000
+});
 });
 
 
