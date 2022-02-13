@@ -15,8 +15,8 @@ $(function teamB() {
     $.ajax({
       url: "team.json",
       beforeSend: function () {
-        let beforeText = $("<h2></h2>").text("Loading...");
-        $(`#team`).append(beforeText);
+        let loadText = $("<h2></h2>").text("Loading...");
+        $(`#team`).append(loadText);
       },
       
       timeout: 3000,
