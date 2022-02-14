@@ -15,7 +15,7 @@ console.log("the team :", team);
 $(function usingAjax() {
 	$.ajax({url: "team.json", 
 	beforeSend: function() {
-		var loadText = $("<h2></h2>").text("Loading...");
+		let loadText = $("<h2></h2>").text("Loading...");
 		$(`div#team`).append(loadText);
 	},
 	error: function(){
