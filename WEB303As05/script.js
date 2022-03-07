@@ -35,5 +35,5 @@ console.log(favmusic);
 
 favmusic.forEach(function(a ,b) {
     $('#content-item-list').append(favmusic[b].toString());
-    
+    $('#content-item-list').css({"border":"1px","width":"300px","padding":"40px","margin":"20px"})
 });
