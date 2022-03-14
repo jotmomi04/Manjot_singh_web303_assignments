@@ -9,22 +9,22 @@ $(function() {
         .slideToggle();
     });
     $(".tab-list").each(function () {
-        // Find lists of tabs
-        var $this = $(this); // Store this list
-        var $tab = $this.find("li.active"); // Get the active li
-        var $link = $tab.find("a"); // Get its link
-        var $panel = $($link.attr("href")); // Get active panel
+        
+        var $this = $(this); 
+        var $tab = $this.find("li.active"); 
+        var $link = $tab.find("a"); 
+        var $panel = $($link.attr("href"));
         $this.on("click", ".tab-control", function (e) {
-          // Click tab
-          e.preventDefault(); // Prevent link
-          var $link = $(this); // Store current link
-          var id = this.hash; // Get clicked tab
-          if (id && !$link.parent().is(".active")) {
-            // If not active
-            $panel.removeClass("active"); // Make panel and
-            $tab.removeClass("active"); // tab inactive
-            $panel = $(id).addClass("active"); // Make new panel and
-            $tab = $link.parent().addClass("active"); // tab active
+          
+          e.preventDefault();
+          var $link = $(this); 
+          var id = this.hash; 
+                  if (id && !$link.parent().is(".active")) {
+          
+            $panel.removeClass("active");
+            $tab.removeClass("active"); 
+            $panel = $(id).addClass("active");
+            $tab = $link.parent().addClass("active");
           }
         });
       });
