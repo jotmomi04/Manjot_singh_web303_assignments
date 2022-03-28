@@ -1,0 +1,17 @@
+ body {
+    background-color: rgb(31, 159, 245);
+    width:960px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+}
+.photo-thumbnails{
+    text-align: center;
+    padding-top: 20px;
+}
+
+
+
+h1 {
+    text-align: center;
+}
