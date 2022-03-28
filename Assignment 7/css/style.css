@@ -15,3 +15,15 @@
 h1 {
     text-align: center;
 }
+body > .photo-viewer{
+    display: none;
+}
+.modal {
+
+    border: 5px solid green;
+    position: absolute;
+    z-index: 1000;
+    background-color: palevioletred;
+    padding: 15px;
+    border-radius: 20px;
+  }

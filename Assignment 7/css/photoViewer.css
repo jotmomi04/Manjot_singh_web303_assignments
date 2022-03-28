@@ -1,8 +1,5 @@
 #photo-viewer {
   display: none;
-  width:100%;
-  margin: 0 auto; 
-  position: relative;
 }
 #photo-viewer .photo-box {
   position: relative;
@@ -23,6 +20,8 @@
   max-width: 100%;
   max-height: 100%;
   top: 50%;
+  border: 5px solid;
+ 
   left: 50%;
 }
 #photo-viewer .thumbnail-anchor img {
@@ -33,7 +32,4 @@
 #photo-viewer .thumbnail-anchor img.active {  display: inline-block;
   border: 5px solid green;
   
-}
-.modal {
-  border: 5px solid green;
 }

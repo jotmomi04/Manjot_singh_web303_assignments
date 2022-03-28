@@ -7,5 +7,14 @@ $(function () {
             height: 'auto'
         });
         //modal code goes here
-       });
+        
+        var modal = new Modal();
+        // Click handler calls open() method of modal object
+
+        modal.open({
+            content: $content,
+            width: 800,
+            height: 470
+        });
+    });
 });
