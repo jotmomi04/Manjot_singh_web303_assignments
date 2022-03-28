@@ -23,7 +23,7 @@ body > .photo-viewer{
     border: 5px solid green;
     position: absolute;
     z-index: 1000;
-    background-color: palevioletred;
+    background-color: black;
     padding: 15px;
     border-radius: 20px;
   }
