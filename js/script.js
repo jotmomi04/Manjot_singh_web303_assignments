@@ -21,18 +21,7 @@ function update(min, max) {
     });
 }
 
-function contentRows() {
-    $.getJSON("moviecharacter.json", function(results) {
-        $.each(results["moviecharacter"], function(i, field) {
-            let $row = $('<tr><td><p>' + field['name'] + "</p></td><td><p>" + field['character'] + "</p></td><td><p>" + field['parts'] + "</p></td><td><p>" + field['episodes'] + "</p></td><td><p>" + field['role'] + "</p></td><td><p>" + field['age'] + "</p></td> </tr>");
-            moviecharacter.push({
-                person: field['name'],
-                $element: $row
-            });
-            $("#table").append($row);
-        });
-    });
-}
+
 
 function searchName() {
     $('#search').keydown(function() {
@@ -66,72 +55,92 @@ function filter() {
         });
     });
 };
-
-function button() {
-    let Names = $('#tbody p');
-    let $buttons = $('#buttons');
-    let tagged = {};
-
-    Names.each(function() {
-        var name = this;
-        var hashtags = $(this).data('moviecharacter');
-        if (hashtags) {
-            hashtags.split(',').forEach(function(tagName) {
-                if (tagged[tagName] == null) {
-                    tagged[tagName] = [];
-                }
-                tagged[tagName].push(name);
-            })
+//adding Sorting
+var compare = {
+    name: function(a, b) {
+        console.log("processing the words", b, ", ", a);
+        if (a < b) {
+            return -1;
+        } else if (b < a) {
+            return 1
+        } else //they're equal
+        {
+            return 0;
         }
+    },
+    compareNumbersAscending: function(a, b) {
+        // b is the first value being compared, a is the second
+        console.log("processing the numbers", b, ", ", a);
+        return parseInt(a) - parseInt(b);
+    },
+    compareNumbersDescending: function(a, b) {
+        // b is the first value being compared, a is the second
+        console.log("processing the numbers", b, ", ", a);
+        return b - a;
+    },
+    compareNumbersRandom: function(a, b) {
+        return 0.5 - Math.random(); // Math.random() returns a value between 0 and 1
+    },
+    compareDates: function(a, b) {
+        var dateA = new Date(a);
+        var dateB = new Date(b);
+        return dateA - dateB;
+    }
+};
+
+
+// beginning of the dynamic filtering example
+
+
+function contentRows() {
+    $.getJSON("moviecharacter.json", function(results) {
+        $.each(results["moviecharacter"], function(i, field) {
+            let $row = $('<tr><td><p>' + field['name'] + "</p></td><td><p>" + field['character'] + "</p></td><td><p>" + field['parts'] + "</p></td><td><p>" + field['episodes'] + "</p></td><td><p>" + field['role'] + "</p></td><td><p>" + field['age'] + "</p></td> </tr>");
+            moviecharacter.push({
+                person: field['name'],
+                $element: $row
+            });
+            $("#table").append($row);
+        });
+    });
+}
+
+function init() { // this is essentially the jquery ready function now
+    contentRows();
+
+
+    $('.sortable').each(function() {
+        var $table = $(this); // This table
+        var $tbody = $table.find('tbody'); // Table body
+        var $controls = $table.find('th'); // Table headers
+        var rows = $tbody.find('tr').toArray(); // Array of rows
+        $controls.on('click', function() { // Event handler
+            var $header = $(this); // Get header
+            var order = $header.data('sortbythis'); // either name or compareNumbersAscending
+            var column; // Used later
+            if ($header.is('.ascending') || $header.is('.descending')) { // Toggle to other class
+                $header.toggleClass('ascending descending');
+                // Reverse the array
+                $tbody.append(rows.reverse());
+            } else { //not sorted yet, we need to sort
+                $header.addClass('ascending'); // Add class to header
+                // Remove asc or desc from all other headers
+                $header.siblings().removeClass('ascending descending'); // If compare object has method of that name
+                console.log("check if has property");
+                if (compare.hasOwnProperty(order)) {
+                    console.log("has property");
+                    column = $controls.index(this); // Column's index no
+                    rows.sort(function(a, b) { // Call sort() on rows
+                        a = $(a).find('td').eq(column).text(); // Text of column row a
+                        b = $(b).find('td').eq(column).text(); // Text of column row b
+                        return compare[order](a, b); // Call compare method
+                    });
+                    $tbody.append(rows);
+                }
+            }
+        });
     });
 
-
-    $('<button/>', {
-        text: 'A - M',
-        class: 'active',
-        click: function() {
-            $(this).addClass('active').siblings().removeClass('active');
-            console.log('clicked');
-            Names.show();
-            $.each(character, function() {
-                if (character <= "M") {
-                    $("p").show();
-                } else {
-                    $("p").hide();
-                }
-                console.log(character);
-            })
-        }
-    }).appendTo($buttons);
-    $('<button/>', {
-        text: 'M - Z',
-        class: 'active',
-        click: function() {
-            $(this)
-                .addClass('active')
-                .siblings()
-                .removeClass('active');
-            Names.show();
-            console.log('clicked');
-            $.each(character, function() {
-                if (character > "M") {
-                    $("p").show();
-                } else {
-                    $("p").hide();
-                }
-                console.log(character);
-            })
-        }
-    }).appendTo($buttons);
-    $.each(tagged, function(tagName) {
-        $('<button/>', {
-            text: tagName + ' (' + tagged[tagName].length + ')',
-            click: function() {
-                $(this).addClass('active').siblings().removeClass('active');
-                Names.hide().filter(tagged[tagName]).show();
-            }
-        }).appendTo($buttons);
-    })
-    console.log($buttons);
-
 }
+
+$(init);
