@@ -1,60 +1,67 @@
 {
-    "moviecharacter":[
-        {
-            "name":"Úrsula Corberó",
-            "character":"Tokyo",
-            "parts":"3",
-            "role":"Main",
-            "episodes":"200"
- 
+    "moviecharacter": [{
+            "name": "Úrsula Corberó",
+            "character": "Tokyo",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "18"
+
         },
         {
-         "name":"Álvaro Morte",
-         "character":"Sergio Marquina",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     },{
-         "name":"Itziar Ituño",
-         "character":"Raquel",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     },{
-         "name":"Pedro Alonso",
-         "character":"Andrés de Fonollosa",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     },{
-         "name":"Paco Tous",
-         "character":"Agustín Ramos",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     },{
-         "name":"Alba Flores",
-         "character":"Ágata Jiménez",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     },{
-         "name":"Miguel Herrán",
-         "character":"Aníbal Cortés (Rio)",
-         "parts":"3",
-         "role":"Main",
-         "episodes":"200"
- 
-     }
- 
- 
- 
- 
- 
- ]
- }
+            "name": "Álvaro Morte",
+            "character": "Sergio Marquina",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "18"
+
+        }, {
+            "name": "Itziar Ituño",
+            "character": "Raquel",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "20"
+
+        }, {
+            "name": "Pedro Alonso",
+            "character": "Andrés de Fonollosa",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "33"
+
+        }, {
+            "name": "Paco Tous",
+            "character": "Agustín Ramos",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "22"
+
+        }, {
+            "name": "Alba Flores",
+            "character": "Ágata Jiménez",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "28"
+
+
+        }, {
+            "name": "Miguel Herrán",
+            "character": "Aníbal Cortés (Rio)",
+            "parts": "3",
+            "role": "Main",
+            "episodes": "200",
+            "age": "38"
+
+        }
+
+
+
+
+
+    ]
+}

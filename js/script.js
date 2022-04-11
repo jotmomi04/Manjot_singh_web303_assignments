@@ -6,10 +6,10 @@ $(function() {
 });
 
 let rows = [];
-    $min = $('#value-min');
-    $max = $('#value-max');
-    $table = $('#rates');
-    moviecharacter = [];
+$min = $('#value-min');
+$max = $('#value-max');
+$table = $('#rates');
+moviecharacter = [];
 
 function update(min, max) {
     rows.forEach(function(row) {
@@ -21,19 +21,20 @@ function update(min, max) {
     });
 }
 
-function contentRows(){
-    $.getJSON("moviecharacter.json", function(results){
-        $.each(results["moviecharacter"],function(i, field){
-             let $row = $('<tr><td><p>' + field['name'] + "</p></td><td><p>" + field['character'] + "</p></td><td><p>" + field['parts'] + "</p></td><td><p>" + field['episodes'] + "</p></td><td><p>" + field['role'] + "</p></td> </tr>");
-                moviecharacter.push({
-                    person: field['name'],
-                    $element: $row
-                });
-                $("#table").append($row);
-            });  });
+function contentRows() {
+    $.getJSON("moviecharacter.json", function(results) {
+        $.each(results["moviecharacter"], function(i, field) {
+            let $row = $('<tr><td><p>' + field['name'] + "</p></td><td><p>" + field['character'] + "</p></td><td><p>" + field['parts'] + "</p></td><td><p>" + field['episodes'] + "</p></td><td><p>" + field['role'] + "</p></td><td><p>" + field['age'] + "</p></td> </tr>");
+            moviecharacter.push({
+                person: field['name'],
+                $element: $row
+            });
+            $("#table").append($row);
+        });
+    });
 }
 
-function searchName(){
+function searchName() {
     $('#search').keydown(function() {
         let $names = $('#name');
         let $search = $('#search');
@@ -41,32 +42,32 @@ function searchName(){
         console.log($search.val());
         $names.each(function() {
             cache.push({
-                element: this 
+                element: this
             });
-        });  
+        });
     })
     filter();
-    };
-
-function filter() {
-        $(document).ready(function(){
-        $('#search').on('keyup', function() {
-            
-            let value = $(this).val().toLowerCase();
-            $('#tbody tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > - 1);
-                if(value != '') {
-                    $(this).css({'background-color': 'yellow' , 'color': 'black', 'font-weight': 'bold'});
-                } else {
-                    $(this).css({'background-color': '', 'color': 'black', 'font-weight': ''});
-                }
-            });
-            
-        });
-    });  
 };
 
-function button(){
+function filter() {
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+
+            let value = $(this).val().toLowerCase();
+            $('#tbody tr').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                if (value != '') {
+                    $(this).css({ 'background-color': 'yellow', 'color': 'black', 'font-weight': 'bold' });
+                } else {
+                    $(this).css({ 'background-color': '', 'color': 'black', 'font-weight': '' });
+                }
+            });
+
+        });
+    });
+};
+
+function button() {
     let Names = $('#tbody p');
     let $buttons = $('#buttons');
     let tagged = {};
@@ -83,9 +84,9 @@ function button(){
             })
         }
     });
-  
-   
- $('<button/>', {
+
+
+    $('<button/>', {
         text: 'A - M',
         class: 'active',
         click: function() {
@@ -93,7 +94,7 @@ function button(){
             console.log('clicked');
             Names.show();
             $.each(character, function() {
-                if(character <= "M") {
+                if (character <= "M") {
                     $("p").show();
                 } else {
                     $("p").hide();
@@ -107,13 +108,13 @@ function button(){
         class: 'active',
         click: function() {
             $(this)
-            .addClass('active')
-            .siblings()
-            .removeClass('active');
+                .addClass('active')
+                .siblings()
+                .removeClass('active');
             Names.show();
             console.log('clicked');
             $.each(character, function() {
-                if(character > "M") {
+                if (character > "M") {
                     $("p").show();
                 } else {
                     $("p").hide();
@@ -132,5 +133,5 @@ function button(){
         }).appendTo($buttons);
     })
     console.log($buttons);
-    
+
 }
