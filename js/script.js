@@ -1,146 +1,182 @@
 $(function() {
-    contentRows();
-    searchName();
-    button();
-    update();
-});
 
-let rows = [];
-$min = $('#value-min');
-$max = $('#value-max');
-$table = $('#rates');
-moviecharacter = [];
+    var $tbody = $('tbody'); // reference <tbody> element on the page
+    var $search = $('#search'); // reference to the search input box
+    var cache = [];
+    var characterCount = [0, 0]; // initially 0 last names starting with a- m and 0 starting with n - z
+    var $buttons = $('#buttons'); // Store buttons
 
-function update(min, max) {
-    rows.forEach(function(row) {
-        if (row.person.episodes >= min && row.person.episodes <= max) {
-            row.$element.show();
-        } else {
-            row.$element.hide();
-        }
-    });
-}
+    // this method is asynchronous, so anything that depends on this data needs to be build inside 
+    // the done method or in a function that is called AFTER the method is done
+    $.getJSON("moviecharacter.json").done((data) => {
+        // jQuery.each of the players in the array
+        $.each(data.moviecharacter, function(key, val) {
+            console.log("data key: ", key, " and data value: ", val);
 
+            var $row = $('<tr></tr>'); // Create their row
+            // populate data
+            $row.append($('<td></td>').text(val.name));
+            $row.append($('<td></td>').text(val.character));
+            $row.append($('<td></td>').text(val.parts));
+            $row.append($('<td></td>').text(val.role));
+            $row.append($('<td></td>').text(val.episodes));
+            $row.append($('<td></td>').text(val.age));
+            $tbody.append($row); // Add row to the tbody
 
-
-function searchName() {
-    $('#search').keydown(function() {
-        let $names = $('#name');
-        let $search = $('#search');
-        let cache = [];
-        console.log($search.val());
-        $names.each(function() {
-            cache.push({
-                element: this
-            });
-        });
-    })
-    filter();
-};
-
-function filter() {
-    $(document).ready(function() {
-        $('#search').on('keyup', function() {
-
-            let value = $(this).val().toLowerCase();
-            $('#tbody tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                if (value != '') {
-                    $(this).css({ 'background-color': 'yellow', 'color': 'black', 'font-weight': 'bold' });
-                } else {
-                    $(this).css({ 'background-color': '', 'color': 'black', 'font-weight': '' });
-                }
+            cache.push({ // Create the cache that contains several values
+                element: $row, // Reference to the row element
+                // The text we're searching against (which in this case is first name)
+                fname: val.name.trim().toLowerCase(),
+                // we only need the first character of the last name for filtering
+                ncharacter: val.character.trim().toLowerCase().charAt(0)
             });
 
-        });
-    });
-};
-//adding Sorting
-var compare = {
-    name: function(a, b) {
-        console.log("processing the words", b, ", ", a);
-        if (a < b) {
-            return -1;
-        } else if (b < a) {
-            return 1
-        } else //they're equal
-        {
-            return 0;
-        }
-    },
-    compareNumbersAscending: function(a, b) {
-        // b is the first value being compared, a is the second
-        console.log("processing the numbers", b, ", ", a);
-        return parseInt(a) - parseInt(b);
-    },
-    compareNumbersDescending: function(a, b) {
-        // b is the first value being compared, a is the second
-        console.log("processing the numbers", b, ", ", a);
-        return b - a;
-    },
-    compareNumbersRandom: function(a, b) {
-        return 0.5 - Math.random(); // Math.random() returns a value between 0 and 1
-    },
-    compareDates: function(a, b) {
-        var dateA = new Date(a);
-        var dateB = new Date(b);
-        return dateA - dateB;
-    }
-};
-
-
-// beginning of the dynamic filtering example
-
-
-function contentRows() {
-    $.getJSON("moviecharacter.json", function(results) {
-        $.each(results["moviecharacter"], function(i, field) {
-            let $row = $('<tr><td><p>' + field['name'] + "</p></td><td><p>" + field['character'] + "</p></td><td><p>" + field['parts'] + "</p></td><td><p>" + field['episodes'] + "</p></td><td><p>" + field['role'] + "</p></td><td><p>" + field['age'] + "</p></td> </tr>");
-            moviecharacter.push({
-                person: field['name'],
-                $element: $row
-            });
-            $("#table").append($row);
-        });
-    });
-}
-
-function init() { // this is essentially the jquery ready function now
-    contentRows();
-
-
-    $('.sortable').each(function() {
-        var $table = $(this); // This table
-        var $tbody = $table.find('tbody'); // Table body
-        var $controls = $table.find('th'); // Table headers
-        var rows = $tbody.find('tr').toArray(); // Array of rows
-        $controls.on('click', function() { // Event handler
-            var $header = $(this); // Get header
-            var order = $header.data('sortbythis'); // either name or compareNumbersAscending
-            var column; // Used later
-            if ($header.is('.ascending') || $header.is('.descending')) { // Toggle to other class
-                $header.toggleClass('ascending descending');
-                // Reverse the array
-                $tbody.append(rows.reverse());
-            } else { //not sorted yet, we need to sort
-                $header.addClass('ascending'); // Add class to header
-                // Remove asc or desc from all other headers
-                $header.siblings().removeClass('ascending descending'); // If compare object has method of that name
-                console.log("check if has property");
-                if (compare.hasOwnProperty(order)) {
-                    console.log("has property");
-                    column = $controls.index(this); // Column's index no
-                    rows.sort(function(a, b) { // Call sort() on rows
-                        a = $(a).find('td').eq(column).text(); // Text of column row a
-                        b = $(b).find('td').eq(column).text(); // Text of column row b
-                        return compare[order](a, b); // Call compare method
-                    });
-                    $tbody.append(rows);
-                }
+            // add to the count for last names starting with a - m, and n - z
+            if ("a" <= val.character.trim().toLowerCase().charAt(0) && "m" >= val.character.trim().toLowerCase().charAt(0)) {
+                characterCount[0]++; // index 0 will be for if the last name starts with a - m
+            } else { // n - z
+                characterCount[1]++; // index 1 will be for if the last name starts with n - z
             }
         });
+
+        // after we process each player, we want to add the buttons to the page.
+        // We need to build the buttons after the data comes back from the server
+        // otherwise characterCount at both indexes will alawys be 0 on the page
+        $('<button/>', { // Create button
+            text: 'A - M (' + characterCount[0] + ')', // Add text, and the count for occurances
+            click: function() { // Add click handler
+                $(this) // Get clicked button
+                    .addClass('active') // Make it active
+                    .siblings() // Get its siblings
+                    .removeClass('active'); // Remove active class
+                cache.forEach((characters) => { // Each cache entry
+                    // check if character is in range
+                    if ("a" <= characters.ncharacter && "m" >= characters.ncharacter) {
+                        characters.element.show();
+                    } else { // not in range, hide this chess player
+                        characters.element.hide();
+                    }
+                });
+
+            }
+        }).appendTo($buttons); // Add to buttons
+
+        $('<button/>', { // Create button
+            text: `N - Z (${characterCount[1]})`, // Add text
+            click: function() { // Add click handler
+                $(this) // Get clicked button
+                    .addClass('active') // Make it active
+                    .siblings() // Get its siblings
+                    .removeClass('active'); // Remove active class
+                cache.forEach((characters) => { // Each cache entry
+                    // check if character is in range
+                    if ("n" <= characters.ncharacter && "z" >= characters.ncharacter) {
+                        characters.element.show();
+                    } else {
+                        characters.element.hide();
+                    }
+                });
+            }
+        }).appendTo($buttons); // Add to buttons
+        var compare = {
+            name: function(a, b) {
+                console.log("processing the words", b, ", ", a);
+                if (a < b) {
+                    return -1;
+                } else if (b < a) {
+                    return 1
+                } else //they're equal
+                {
+                    return 0;
+                }
+            },
+            compareNumbersAscending: function(a, b) {
+                // b is the first value being compared, a is the second
+                console.log("processing the numbers", b, ", ", a);
+                return parseInt(a) - parseInt(b);
+            },
+            compareNumbersDescending: function(a, b) {
+                // b is the first value being compared, a is the second
+                console.log("processing the numbers", b, ", ", a);
+                return b - a;
+            },
+            compareNumbersRandom: function(a, b) {
+                return 0.5 - Math.random(); // Math.random() returns a value between 0 and 1
+            },
+            compareDates: function(a, b) {
+                var dateA = new Date(a);
+                var dateB = new Date(b);
+                return dateA - dateB;
+            }
+        };
+
+
+
+
+        $('.sortable').each(function() {
+            let $table = $(this);
+            let $tbody = $table.find('tbody');
+            let $controls = $table.find('th');
+            let rows = $tbody.find('tr').toArray();
+
+            $controls.on('click', function() {
+                let $header = $(this);
+                let order = $header.find("a").data('sortbythis');
+                console.log("order control, ", order);
+                let column;
+                if ($header.is('.descending')) {
+                    $header.removeClass('ascending descending');
+                    $header.siblings().removeClass('ascending descending');
+                } else if ($header.is('.ascending')) {
+                    $header.toggleClass('ascending descending');
+                    //revese array
+                    $tbody.append(rows.reverse());
+                } else {
+                    $header.addClass('ascending'); // Add class to header
+                    // Remove asc or desc from all other headers
+                    $header.siblings().removeClass('ascending descending');
+                    if (compare.hasOwnProperty(order)) {
+                        console.log("has property");
+                        column = $controls.index(this); // Column's index no
+                        rows.sort(function(a, b) { // Call sort() on rows
+                            a = $(a).find('td').eq(column).text(); // Text of column row a
+                            b = $(b).find('td').eq(column).text(); // Text of column row b
+                            return compare[order](a, b); // Call compare method
+                        });
+                        $tbody.append(rows);
+                    }
+                }
+            })
+        });
     });
 
-}
 
-$(init);
+    // method operates on the search input, so the keyword this references the input#filter-search element
+    function filter() {
+        var query = this.value.trim().toLowerCase(); // Get query
+        if (query) { // If there’s a query
+            cache.forEach(function(characters) { // Each cache entry
+                var index = 0; // Set index to 0
+                index = characters.fname.indexOf(query); // Is text in there?
+                if (index != -1) { // we found the string in their first name
+                    characters.element.addClass("active"); // we will apply colours based on this class
+                } else { // player first name doesn't have the query string, make sure it's not higlighted
+                    characters.element.removeClass("active")
+                }
+            });
+        } else { // if the search is empty, nobody should be highlighted
+            $('tbody tr').removeClass("active");
+        }
+    }
+    // if the search input box supports the input event, we want to use it instead of the keyup event
+    if ('oninput' in $search[0]) {
+        // Use input event to call filter()
+        $search.on('input', filter);
+    } else { // Otherwise
+        // Use keyup event to call filter()
+        $search.on('keyup', filter);
+    }
+
+
+
+});
