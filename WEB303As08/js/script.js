@@ -3,11 +3,10 @@ $(function() {
     var $tbody = $('tbody'); // reference <tbody> element on the page
     var $search = $('#search'); // reference to the search input box
     var cache = [];
-    var characterCount = [0, 0]; // initially 0 last names starting with a- m and 0 starting with n - z
+    var characterCount = [0, 0]; //
     var $buttons = $('#buttons'); // Store buttons
 
-    // this method is asynchronous, so anything that depends on this data needs to be build inside 
-    // the done method or in a function that is called AFTER the method is done
+
     $.getJSON("moviecharacter.json").done((data) => {
         // jQuery.each of the players in the array
         $.each(data.moviecharacter, function(key, val) {
@@ -21,7 +20,7 @@ $(function() {
             $row.append($('<td></td>').text(val.role));
             $row.append($('<td></td>').text(val.episodes));
 
-            $tbody.append($row); // Add row to the tbody
+            $tbody.append($row);
 
             cache.push({ // Create the cache that contains several values
                 element: $row, // Reference to the row element
