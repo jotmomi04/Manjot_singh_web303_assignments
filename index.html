@@ -6,11 +6,35 @@
 
 <body>
     <h1>
-        <!-- your name goes here -->
+        Manjot Singh
     </h1>
+    <div>
+        <form name="login" id="myform" action="/login/" method="post">
+            <fieldset>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" />
+
+                <label for="pwd">Passsword:</label>
+                <input type="password" id="pwd" name="pwd" />
+
+                <label for="confirmPwd">Confirm Passsword:</label>
+                <input type="password" id="confirmPwd" name="confirmPwd" />
+
+                <label for="term">I accept the terms of Service</label>
+                <input type="checkbox" id="term" name="term" />
+
+                <label for="list">Select Country</label>
+                <select id="country"></select>
+
+                <input id="submit" type="submit" value=" Submit" />
+            </fieldset>
+        </form>
+    </div>
+
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 
 </html>
