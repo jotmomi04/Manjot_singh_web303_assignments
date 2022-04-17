@@ -10,24 +10,36 @@
     </h1>
     <div>
         <form name="login" id="myform" action="/login/" method="post">
-            <fieldset>
+
+
+            <div class="input-control">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" />
+                <div class="error"></div>
+            </div>
 
+            <div class="input-control">
                 <label for="pwd">Passsword:</label>
                 <input type="password" id="pwd" name="pwd" />
-
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
                 <label for="confirmPwd">Confirm Passsword:</label>
                 <input type="password" id="confirmPwd" name="confirmPwd" />
-
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
                 <label for="term">I accept the terms of Service</label>
                 <input type="checkbox" id="term" name="term" />
+                <div class="error"></div>
+            </div>
 
-                <label for="list">Select Country</label>
-                <select id="country"></select>
+            <label for="list">Select Country</label>
+            <select id="country"></select>
 
-                <input id="submit" type="submit" value=" Submit" />
-            </fieldset>
+            <input id="submit" type="submit" value=" Submit" />
+
+
         </form>
     </div>
 
