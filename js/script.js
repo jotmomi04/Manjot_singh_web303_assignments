@@ -3,8 +3,9 @@
     let submit = document.getElementById('submit'); // get submit button
     let username = document.getElementById('username'); //get username
     let cpassword = document.getElementById('confirmPwd'); // get password input
-    let list = document.getElementById('list'); // get country list
-    let term = document.getElementById('term').checked; // get term checkbox input
+    let term = document.getElementById('term'); // get term checkbox input
+    let list = document.getElementById('list');
+
 
     form.addEventListener('submit', function(e) {
 
@@ -30,12 +31,20 @@
 
 
     }
+    var lists = countries;
+    var key;
+    for (key in lists) { // Loop through models
+        options += `<option value="${key}">${models[key]}</option>`;
+    }
+    list.innerHTML = options; // Update select box
+    console.log("value is ", lists)
+
 
     var validateInputs = () => {
         const usernamevalue = username.value.trim() // use trim to avoid whitespace
         const passwordvalue = password.value.trim();
         const cpasswordvalue = cpassword.value.trim();
-        const termvalue = term;
+        // const termvalue = term.Checked;
         //const termvalue = term.value();
 
         if (usernamevalue === '') {
@@ -61,11 +70,12 @@
         } else {
             setSuccess(cpassword);
         }
-
-        if (termvalue == false) {
+        console.log("Term is", term, "term is checked", term.checked)
+        if (term.checked == false) {
             setError(term, 'please check the box')
         } else {
             setSuccess(term);
         }
+
 
     }
