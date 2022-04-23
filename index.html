@@ -9,7 +9,7 @@
         Manjot Singh
     </h1>
     <div>
-        <form name="login" id="myform" action="/login/" method="post">
+        <form name="login" id="myform" action="formaction.html" method="post">
 
 
             <div class="input-control">
@@ -40,7 +40,16 @@
             </select>
                 <div class="error"></div>
             </div>
-            <input id="submit" type="submit" value=" Submit" />
+            <div>
+                <button id="submit" onclick="message()">Submit</button>
+            </div>
+            <br>
+            <div class="msg">
+                <div class="success" id="success">
+                    your information is saved
+                </div>
+                <div class="error" id="error">Filed are reqired</div>
+            </div>
 
 
         </form>

@@ -32,6 +32,26 @@
 
     }
 
+    function message() {
+        var msg = document.getElementById('msg')
+        const success = document.getElementById('success')
+        const error = document.getElementById('error')
+        if (username.value === '' || password.value === '' || term.checked == false || cpassword == '' || list.value == 'choose') {
+            error.style.display = 'block';
+        } else {
+            setTimeout(() => {
+                username.value = '';
+                password.value = '';
+                cpassword.value = '';
+                list.value = 'choose';
+                term.checked == false;
+
+
+            }, 2000);
+            success.style.display = "block";
+            error.style.display = "none";
+        }
+    }
 
 
     var validateInputs = () => {
