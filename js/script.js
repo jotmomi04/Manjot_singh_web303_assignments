@@ -4,7 +4,7 @@
     let username = document.getElementById('username'); //get username
     let cpassword = document.getElementById('confirmPwd'); // get password input
     let term = document.getElementById('term'); // get term checkbox input
-    let list = document.getElementById('list');
+
 
 
     form.addEventListener('submit', function(e) {
@@ -31,7 +31,7 @@
 
 
     }
-  
+
 
 
     var validateInputs = () => {
@@ -70,6 +70,10 @@
         } else {
             setSuccess(term);
         }
-
-
+        if (list.select == false) {
+            setError(list, "please select a country")
+        } else {
+            setSuccess(list);
+        }
+        console.log(list.select)
     }
