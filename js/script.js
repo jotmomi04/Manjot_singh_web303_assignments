@@ -31,13 +31,7 @@
 
 
     }
-    var lists = countries;
-    var key;
-    for (key in lists) { // Loop through models
-        options += `<option value="${key}">${models[key]}</option>`;
-    }
-    list.innerHTML = options; // Update select box
-    console.log("value is ", lists)
+  
 
 
     var validateInputs = () => {
