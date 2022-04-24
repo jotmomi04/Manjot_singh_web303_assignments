@@ -1,29 +1,25 @@
  body {
-    background-color: rgb(31, 159, 245);
-    width:960px;
-    height: auto;
-    margin: 0 auto;
-    padding: 0;
-}
-.photo-thumbnails{
-    text-align: center;
-    padding-top: 20px;
-}
-
-
-
-h1 {
-    text-align: center;
-}
-body > .photo-viewer{
-    display: none;
-}
-.modal {
-
-    border: 5px solid green;
-    position: absolute;
-    z-index: 1000;
-    background-color: black;
-    padding: 15px;
-    border-radius: 20px;
-  }
+     background-color: rgb(31, 159, 245);
+     width: 960px;
+     height: auto;
+     margin: 0 auto;
+     padding: 0;
+ }
+ 
+ .photo-thumbnails {
+     text-align: center;
+     padding-top: 20px;
+ }
+ 
+ h1 {
+     text-align: center;
+ }
+ 
+ .modal {
+     border: 5px solid green;
+     position: absolute;
+     z-index: 1000;
+     background-color: black;
+     padding: 15px;
+     border-radius: 20px;
+ }
